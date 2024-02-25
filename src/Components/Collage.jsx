@@ -1,16 +1,15 @@
-import { useParams } from "react-router-dom"
 import { useCollageAll } from "../hooks/useCollage"
 import Picture from "./Picture";
 import PlaceholderComponent from "./PlaceholderComponent";
 
 const Collage = () => {
 
-    const {ref} = useParams();
-    const {items, error, loader} = useCollageAll(ref);
+    
+    const {items, error, loader, ref} = useCollageAll();
 
     return (
-        <div className="content"> 
-            <h1>fotos de {ref.replaceAll("_"," ")}</h1>
+        <> 
+            <h2 className="collage-title">{ref.replaceAll("_"," ")}</h2>
             <div className="row">
             {(loader) &&
             <>
@@ -27,7 +26,7 @@ const Collage = () => {
                 )
             }
             </div>
-        </div>
+        </>
     )
 }
 

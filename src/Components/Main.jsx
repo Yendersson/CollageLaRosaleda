@@ -1,39 +1,27 @@
+import { Outlet } from "react-router-dom";
 import { useDir } from "../hooks/useDir"
 import Banner from "./Banner";
-import CollageContainer from "./CollageContainer";
+import { createContext } from "react";
+
+export const PageContext = createContext();
 const Main = () => {
 
     const { directorios, error, loader } = useDir();
 
     return (
-        <>
+        <PageContext.Provider value={{ directorios, loader, error }}>
             <Banner />
 
             <div className="content">
 
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id omnis rerum tenetur repellendus accusamus similique, inventore deleniti possimus. Earum dolorem magni ipsa, vitae distinctio dolore voluptates consequatur quae eius consequuntur.</p>
+                <p>Aquí les presentamos algunas de las actividades que hemos hecho, entre ellas excursiones y más actividades como talleres de risoterapia y charlas. En las cuales nos hemos unido más como familia, aumentando el compañerismo y la asertividad entre los alumnos, no solo del segundo año del Ciclo Superior de Asistencia a la Dirección, sino también, con el resto de los estudiantes que aquí se encuentran.
+                </p>
+                <h2 style={{ textAlign: "center" }} id="excursiones">Excursiones</h2>
 
-                <h2 style={{ textAlign: "center" }}>Excursiones</h2>
-                <div className="album">
-                    {(!loader && !error) &&
-                        directorios.map((item, index) => (
-                            <div className="presentation" key={index}>
-                                <div>
-                                    <CollageContainer key={index} reference={item} />
-                                    <h3>{item.replaceAll("_", " ")}</h3>
-                                </div>
-                            </div>
-                        ))
-                    }
-
-                    {error &&
-                        <div>
-                            <h2>Error: {error}</h2>
-                        </div>
-                    }
-                </div>
+                <Outlet />
             </div>
-        </>
+
+        </PageContext.Provider>
     )
 }
 
